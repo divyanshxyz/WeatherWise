@@ -59,7 +59,7 @@ function renderWeather(appState) {
     displayContainer.innerHTML = `
             <div id="loading-anchor" class="loading-hidden"></div>
             ${currentHtml}
-            <span>Desription: ${currentWeather.description}</span>
+            <span>Description: ${currentWeather.description}</span>
 
             <div class="forecast-container">
             <div class="forecast-day-row forecast-day-row-head">
