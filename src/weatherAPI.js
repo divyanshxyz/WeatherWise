@@ -35,7 +35,7 @@ function processWeatherData(rawJsonData) {
             "maxTemp": day.tempmax,
             "minTemp": day.tempmin,
             "condition": day.conditions,
-            "iconId": day.icon,
+            "icon": day.icon,
         }
     })
     // for (let day of rawJsonData.days) {

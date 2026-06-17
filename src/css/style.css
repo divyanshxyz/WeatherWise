@@ -117,6 +117,33 @@ button[type="submit"]:hover {
     color: var(--text-muted);
 }
 
+/* Layout Alignment Split Matrix */
+.card-layout-split {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card-left-info {
+    flex: 1;
+}
+
+.card-right-visual {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+}
+
+
+.card-right-visual svg {
+    width: 100%;
+    height: 100%;
+}
+
 /* Global Row Layout */
 
 #display-container>span {
@@ -140,7 +167,7 @@ button[type="submit"]:hover {
 
 .forecast-day-row {
     display: grid;
-    grid-template-columns: 1.2fr 1fr 1.5fr 1.2fr;
+    grid-template-columns: 1.2fr 1.5fr 1.5fr 1.5fr 1fr;
     padding: 1rem;
     border-bottom: 1px solid var(--border-color);
     align-items: center;
@@ -151,8 +178,10 @@ button[type="submit"]:hover {
     border-bottom: none;
 }
 
-.forecast-day-row span:nth-child(1) {
+
+.forecast-day-row span {
     font-weight: 500;
+    text-align: center;
 }
 
 .forecast-day-row span:nth-child(2) {
@@ -160,14 +189,22 @@ button[type="submit"]:hover {
     text-align: center;
 }
 
-.forecast-day-row span:nth-child(3) {
-    text-align: center;
-    font-weight: 500;
+.forecast-day-row span:last-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; 
+    width: 28px;
+    height: 28px;
+    color: var(--primary);
+    margin-left: auto; 
 }
-.forecast-day-row span:nth-child(4) {
-    font-weight: 500;
-    text-align: right;
+
+.forecast-day-row span:last-child svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
+
 
 /* Error States */
 .error-badge {
@@ -180,7 +217,7 @@ button[type="submit"]:hover {
 
 /* Loading Anchor */
 #loading-anchor {
-    font-width: 500;
+    font-weight: 500;
     color: var(--primary);
     margin-bottom: 1rem;
     transition: opacity 0.2s ease-in-out;

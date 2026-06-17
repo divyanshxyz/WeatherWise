@@ -1,3 +1,5 @@
+import { getWeatherIcon } from "./iconRegistry";
+
 function celsiusToFahrenheit(celsius) {
     return (celsius * (9 / 5)) + 32;
 }
@@ -13,6 +15,7 @@ function formatTemperature(tempInCelsius, unit) {
 function renderWeather(appState) {
     const displayContainer = document.querySelector("#display-container")
     const { currentWeather, forecast, currentUnit } = appState
+    const iconSvg = getWeatherIcon(currentWeather.icon);
 
     if (!currentWeather) return;
 
@@ -22,25 +25,34 @@ function renderWeather(appState) {
     const feelsLikeDisplay = formatTemperature(currentWeather.feelsLike, currentUnit)
 
     const currentHtml = `
-    <div class="current-weather-card">
+<div class="current-weather-card">
+    <div class="card-layout-split">
+        <div class="card-left-info">
             <h2>${currentWeather.resolvedAddress}</h2>
             <p class="main-temp">${currentTempDisplay}</p>
             <p>High: ${maxTempDisplay} / Low: ${minTempDisplay}</p>
             <p>Feels Like: ${feelsLikeDisplay}</p>
             <p>Humidity: ${currentWeather.humidity}%</p>
             <p>Condition: ${currentWeather.conditions}</p>
-    </div>`
+        </div>
+        <div class="card-right-visual">
+            ${iconSvg}
+        </div>
+    </div>
+</div>`
 
     const forecastHtml = forecast.map(day => {
         const dayMax = formatTemperature(day.maxTemp, currentUnit)
         const dayMin = formatTemperature(day.minTemp, currentUnit)
         const dayAvg = formatTemperature(day.avgTemp, currentUnit)
+        const iconSvg = getWeatherIcon(day.icon);
         return `
             <div class="forecast-day-row">
                 <span>${day.date}</span>
                 <span> ${dayAvg}</span>
                 <span>${dayMax} / ${dayMin}</span>
-                <span>${day.condition}</span>
+                <span>${day.condition} </span>
+                <span>${iconSvg}</span>
             </div>
         `
     }).join('')
@@ -55,6 +67,7 @@ function renderWeather(appState) {
                 <span>Average Temperature</span>
                 <span>Max/Min</span>
                 <span>Condition</span>
+                 <span></span>
             </div>
             ${forecastHtml}
             </div>
