@@ -1,4 +1,4 @@
-import { renderWeather } from './UIController.js';
+import { renderWeather, renderError } from './UIController.js';
 import { getRawWeatherData, processWeatherData } from './weatherAPI.js';
 
 const weatherForm = document.querySelector('#input-form');
@@ -11,6 +11,26 @@ let appState = {
     forecast: null,
     currentUnit: 'C'
 };
+
+(async function (location = "india") {
+    try {
+        loadingAnchor.classList.remove("loading-hidden")
+        loadingAnchor.classList.add("loading-active")
+
+        const rawData = await getRawWeatherData(location)
+        const processedData = processWeatherData(rawData)
+        appState.currentWeather = processedData.currentData
+        appState.forecast = processedData.forecastSummary
+        console.log("Success! Cleaned app state data:", appState);
+        renderWeather(appState)
+    } catch (error) {
+        renderError(error.message)
+        console.error(error.message);
+    } finally {
+        loadingAnchor.classList.remove("loading-active")
+        loadingAnchor.classList.add("loading-hidden")
+    }
+})()
 
 weatherForm.addEventListener('submit', async (event) => {
 
@@ -31,10 +51,9 @@ weatherForm.addEventListener('submit', async (event) => {
         appState.currentWeather = processedData.currentData
         appState.forecast = processedData.forecastSummary
         console.log("Success! Cleaned app state data:", appState);
-
+        renderWeather(appState)
     } catch (error) {
-        // UI render will display error message
-        // UIController.HandleError(error.message)
+        renderError(error.message)
         console.error(error.message);
     } finally {
         loadingAnchor.classList.remove("loading-active")
@@ -44,7 +63,7 @@ weatherForm.addEventListener('submit', async (event) => {
 
 
 unitChangeBtn.addEventListener("click", (event) => {
-    if(appState.currentUnit === 'C') {
+    if (appState.currentUnit === 'C') {
         appState.currentUnit = 'F'
         unitChangeBtn.innerHTML = 'F'
     }
@@ -55,3 +74,4 @@ unitChangeBtn.addEventListener("click", (event) => {
 
     renderWeather(appState)
 });
+

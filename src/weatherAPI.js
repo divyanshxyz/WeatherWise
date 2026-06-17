@@ -17,7 +17,8 @@ function processWeatherData(rawJsonData) {
         "feelsLike": rawJsonData.days[0].feelslike,
         "humidity": rawJsonData.days[0].humidity,
         "conditions": rawJsonData.days[0].conditions,
-        "icon": rawJsonData.days[0].icon
+        "icon": rawJsonData.days[0].icon,
+        "description": rawJsonData.description
     }
 
     // const { resolvedAddress, days } = rawApiData;
@@ -30,10 +31,11 @@ function processWeatherData(rawJsonData) {
     const forecastSummary = rawJsonData.days.map((day) => {
         return {
             "date": day.datetime,
+            "avgTemp": day.temp,
             "maxTemp": day.tempmax,
             "minTemp": day.tempmin,
             "condition": day.conditions,
-            "iconId": day.icon
+            "iconId": day.icon,
         }
     })
     // for (let day of rawJsonData.days) {
