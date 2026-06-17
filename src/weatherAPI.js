@@ -12,8 +12,8 @@ function processWeatherData(rawJsonData) {
     const currentData = {
         "resolvedAddress": rawJsonData.resolvedAddress,
         "currentTemp": rawJsonData.days[0].temp,
-        "MinTemp": rawJsonData.days[0].tempmin,
-        "MaxTemp": rawJsonData.days[0].tempmax,
+        "minTemp": rawJsonData.days[0].tempmin,
+        "maxTemp": rawJsonData.days[0].tempmax,
         "feelsLike": rawJsonData.days[0].feelslike,
         "humidity": rawJsonData.days[0].humidity,
         "conditions": rawJsonData.days[0].conditions,

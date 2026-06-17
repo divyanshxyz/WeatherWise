@@ -1,8 +1,10 @@
+import { renderWeather } from './UIController.js';
 import { getRawWeatherData, processWeatherData } from './weatherAPI.js';
 
 const weatherForm = document.querySelector('#input-form');
 const locationInput = document.querySelector('#search');
 const loadingAnchor = document.querySelector("#loading-anchor")
+const unitChangeBtn = document.querySelector("#unit-change-btn")
 
 let appState = {
     currentWeather: null,
@@ -21,7 +23,6 @@ weatherForm.addEventListener('submit', async (event) => {
         return
     }
     try {
-        // Toggle on a loading indicator display in your loading-anchor
         loadingAnchor.classList.remove("loading-hidden")
         loadingAnchor.classList.add("loading-active")
 
@@ -39,4 +40,18 @@ weatherForm.addEventListener('submit', async (event) => {
         loadingAnchor.classList.remove("loading-active")
         loadingAnchor.classList.add("loading-hidden")
     }
+});
+
+
+unitChangeBtn.addEventListener("click", (event) => {
+    if(appState.currentUnit === 'C') {
+        appState.currentUnit = 'F'
+        unitChangeBtn.innerHTML = 'F'
+    }
+    else {
+        appState.currentUnit = 'C'
+        unitChangeBtn.innerHTML = 'C'
+    }
+
+    renderWeather(appState)
 });
