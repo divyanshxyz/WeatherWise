@@ -1,5 +1,6 @@
 import { renderWeather, renderError } from './UIController.js';
 import { getRawWeatherData, processWeatherData } from './weatherAPI.js';
+import "./css/style.css"
 
 const weatherForm = document.querySelector('#input-form');
 const locationInput = document.querySelector('#search');
@@ -9,7 +10,7 @@ const unitChangeBtn = document.querySelector("#unit-change-btn")
 let appState = {
     currentWeather: null,
     forecast: null,
-    currentUnit: 'C'
+    currentUnit: '°C'
 };
 
 (async function (location = "india") {
@@ -63,13 +64,13 @@ weatherForm.addEventListener('submit', async (event) => {
 
 
 unitChangeBtn.addEventListener("click", (event) => {
-    if (appState.currentUnit === 'C') {
-        appState.currentUnit = 'F'
-        unitChangeBtn.innerHTML = 'F'
+    if (appState.currentUnit === '°C') {
+        appState.currentUnit = '°F'
+        unitChangeBtn.innerHTML = '°F'
     }
     else {
-        appState.currentUnit = 'C'
-        unitChangeBtn.innerHTML = 'C'
+        appState.currentUnit = '°C'
+        unitChangeBtn.innerHTML = '°C'
     }
 
     renderWeather(appState)

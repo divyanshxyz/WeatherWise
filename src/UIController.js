@@ -3,11 +3,11 @@ function celsiusToFahrenheit(celsius) {
 }
 
 function formatTemperature(tempInCelsius, unit) {
-    if (unit == 'F') {
+    if (unit == '°F') {
         const fahrenheit = celsiusToFahrenheit(tempInCelsius)
-        return `${fahrenheit}°F`
+        return `${fahrenheit.toFixed(1)}°F`
     }
-    return `${tempInCelsius}°C`
+    return `${tempInCelsius.toFixed(1)}°C`
 }
 
 function renderWeather(appState) {
@@ -38,9 +38,9 @@ function renderWeather(appState) {
         return `
             <div class="forecast-day-row">
                 <span>${day.date}</span>
-                <span>Average Temperature: ${dayAvg}</span>
-                <span>${day.condition}</span>
+                <span> ${dayAvg}</span>
                 <span>${dayMax} / ${dayMin}</span>
+                <span>${day.condition}</span>
             </div>
         `
     }).join('')
@@ -48,7 +48,16 @@ function renderWeather(appState) {
             <div id="loading-anchor" class="loading-hidden"></div>
             ${currentHtml}
             <span>Desription: ${currentWeather.description}</span>
-            <div class="forecast-container">${forecastHtml}</div>
+
+            <div class="forecast-container">
+            <div class="forecast-day-row forecast-day-row-head">
+                <span>Date</span>
+                <span>Average Temperature</span>
+                <span>Max/Min</span>
+                <span>Condition</span>
+            </div>
+            ${forecastHtml}
+            </div>
         `;
 }
 
@@ -65,4 +74,4 @@ function renderError(message) {
 }
 
 
-export {renderWeather, renderError};
+export { renderWeather, renderError };
